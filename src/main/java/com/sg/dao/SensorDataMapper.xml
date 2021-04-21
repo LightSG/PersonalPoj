@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.sg.dao.SensorDataMapper">
+    <select id="querySensorType" parameterType="String" resultType="String">
+        SELECT DISTINCT sensorid FROM scada.sensor_date
+    </select>
+    <insert id="addSensorData" parameterType="SensorData">
+        INSERT INTO scada.sensor_date (id, sensorid, data_value, time)
+        VALUES (#{id},#{sensorId},#{dataValue},#{time})
+    </insert>
+    <select id="querySensorData" resultType="SensorData">
+        SELECT data_value ,time FROM scada.sensor_date WHERE sensorid=#{arg0} order by time desc limit #{arg1}
+    </select>
+</mapper>
